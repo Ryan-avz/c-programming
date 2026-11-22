@@ -1,91 +1,92 @@
+
 #include <stdio.h>
 
-
-float somando (float num1, float num2) {
-    float soma;
-    soma = num1 + num2;
-    printf("O resultado e %.2f\n", soma);
-    return soma;
+float add(float num1, float num2) {
+    float sum;
+    sum = num1 + num2;
+    printf("The result is %.2f\n", sum);
+    return sum;
 }
 
-float subtraindo (float num1, float num2) {
-    float subtrair;
-    subtrair = num1 - num2;
-    printf("O resultado e %.2f\n", subtrair);
-    return subtrair;
+float subtract(float num1, float num2) {
+    float difference;
+    difference = num1 - num2;
+    printf("The result is %.2f\n", difference);
+    return difference;
 }
 
-float multiplicando (float num1, float num2) {
-    float multiplica;
-    multiplica = num1 * num2;
-    printf("O resultado e %.2f\n", multiplica);
-    return multiplica;
+float multiply(float num1, float num2) {
+    float product;
+    product = num1 * num2;
+    printf("The result is %.2f\n", product);
+    return product;
 }
 
-float dividindo (float num1, float num2) {
-    float divide;
-    if (num2 == 0){
-        printf("Nao e possivel dividir por 0. \n");
+float divide(float num1, float num2) {
+    float quotient;
+
+    if (num2 == 0) {
+        printf("Division by zero is not allowed.\n");
         return 0;
     }
-    
-    divide = num1 / num2;
-    printf("O resultado e %.2f\n", divide);
-    return divide;
+
+    quotient = num1 / num2;
+    printf("The result is %.2f\n", quotient);
+    return quotient;
 }
 
-float confirmar(float num1, float num2, char operation) {
+float confirm(float num1, float num2, char operation) {
 
-    char ask = 's';
+    char answer = 'y';
     float result;
 
     switch (operation) {
         case '+':
-            result = somando(num1, num2);
+            result = add(num1, num2);
             break;
 
         case '-':
-            result = subtraindo(num1, num2);
+            result = subtract(num1, num2);
             break;
 
         case '*':
-            result = multiplicando(num1, num2);
+            result = multiply(num1, num2);
             break;
 
         case '/':
-            result = dividindo(num1, num2);
+            result = divide(num1, num2);
             break;
 
         default:
-            printf("Operador invalido!\n");
+            printf("Invalid operator!\n");
             return 0;
     }
 
-    while (ask == 's') {
+    while (answer == 'y') {
 
-        printf("Deseja continuar realizando essa operacao? [s/n]\n>> ");
-        scanf(" %c", &ask);
+        printf("Do you want to continue this operation? [y/n]\n>> ");
+        scanf(" %c", &answer);
 
-        if (ask == 's') {
+        if (answer == 'y') {
 
-            printf("Numero: ");
+            printf("Number: ");
             scanf("%f", &num2);
 
             switch (operation) {
                 case '+':
-                    result = somando(result, num2);
+                    result = add(result, num2);
                     break;
 
                 case '-':
-                    result = subtraindo(result, num2);
+                    result = subtract(result, num2);
                     break;
 
                 case '*':
-                    result = multiplicando(result, num2);
+                    result = multiply(result, num2);
                     break;
 
                 case '/':
-                    result = dividindo(result, num2);
+                    result = divide(result, num2);
                     break;
             }
         }
@@ -94,45 +95,48 @@ float confirmar(float num1, float num2, char operation) {
     return result;
 }
 
-
 int main() {
     int c;
     float num1, num2, result;
-    char operation, ask;
+    char operation, answer;
 
+    printf("Welcome to the C Calculator!!\n");
+    printf("Step by step:\n");
+    printf(" I - Enter any number\n");
+    printf(" II - Choose the operator\n");
+    printf(" III - Enter the second number\n\n");
 
-    printf("Bem vindo a calculadora em C!!\n");
-    printf("Passo a passo: \t\n I - Digite um numero qualquer \t\n II - Escolha o operador a ser usado \t\n III - Escolha o segundo numero \t\n\n");
     c = 0;
+
     while (c == 0) {
-        
-        char escolha;
 
-        printf("Digite 0 para prosseguir ou outra tecla para sair: ");
-        scanf(" %c", &escolha);
+        char choice;
 
-        if (escolha != '0') {
-         break;
-        }
-        
-        if (c != 0){
+        printf("Enter 0 to continue or any other key to exit: ");
+        scanf(" %c", &choice);
+
+        if (choice != '0') {
             break;
         }
 
-        printf("Numero: ");
+        if (c != 0) {
+            break;
+        }
+
+        printf("Number: ");
         scanf("%f", &num1);
-        
+
         printf("\n");
-        printf("|  [+]   Adicao            |\n");
-        printf("|  [-]   Subtracao         |\n");
-        printf("|  [*]   Multiplicacao     |\n");
-        printf("|  [/]   Divisao           |\n\n");
-        printf("Escolha uma operacao: ");
+        printf("|  [+]   Addition          |\n");
+        printf("|  [-]   Subtraction       |\n");
+        printf("|  [*]   Multiplication    |\n");
+        printf("|  [/]   Division          |\n\n");
+
+        printf("Choose an operation: ");
         scanf(" %c", &operation);
-        
-        printf("Numero 2: ");
+
+        printf("Number 2: ");
         scanf("%f", &num2);
-        
 
         switch (operation) {
 
@@ -140,21 +144,22 @@ int main() {
             case '-':
             case '*':
             case '/':
-                result = confirmar(num1, num2, operation);
+                result = confirm(num1, num2, operation);
                 break;
 
             default:
-                printf("Operador invalido!\n");
+                printf("Invalid operator!\n");
                 break;
         }
-        
-        printf("Deseja realizar outra operacao? [s/n]\n>> ");
-        scanf(" %c", &ask);
-        if ((ask != 's') || (ask != 'n')){
-            printf("Shut down...");
+
+        printf("Do you want to perform another operation? [y/n]\n>> ");
+        scanf(" %c", &answer);
+
+        if (answer == 'n') {
+            printf("Shutting down...\n");
             return 0;
         }
-         
     }
-    return 0;  
+
+    return 0;
 }
